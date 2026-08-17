@@ -5,9 +5,7 @@ import os
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
-# -----------------------------
 # DATABASE QUERY FUNCTION
-# -----------------------------
 def run_query(sql):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DB_PATH = os.path.join(BASE_DIR, "..", "database", "store.db")
@@ -17,9 +15,7 @@ def run_query(sql):
     conn.close()
     return df
 
-# -----------------------------
 # DISPLAY METHODS
-# -----------------------------
 def show_table(df):
     win = ctk.CTkToplevel()
     win.title("Table")
@@ -62,9 +58,7 @@ def show_plot(df, chart_type):
     canvas.draw()
     canvas.get_tk_widget().pack()
 
-# -----------------------------
 # MENU FOR DISPLAY OPTIONS
-# -----------------------------
 def choose_display(df):
     win = ctk.CTkToplevel()
     win.title("Display Options")
@@ -77,9 +71,7 @@ def choose_display(df):
     ctk.CTkButton(win, text="Line Chart", command=lambda: show_plot(df, "line")).pack(pady=10)
     ctk.CTkButton(win, text="Pie Chart", command=lambda: show_plot(df, "pie")).pack(pady=10)
 
-# -----------------------------
 # ANALYTICS FUNCTIONS
-# -----------------------------
 def total_revenue():
     df = run_query("""
         SELECT SUM(price * quantity) AS TotalRevenue
@@ -127,9 +119,7 @@ def orders_by_month():
     """)
     choose_display(df)
 
-# -----------------------------
 # MAIN GUI WINDOW
-# -----------------------------
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
@@ -145,9 +135,7 @@ ctk.CTkButton(app, text="Top Products", command=top_products).pack(pady=10)
 ctk.CTkButton(app, text="Average Order Value", command=average_order_value).pack(pady=10)
 ctk.CTkButton(app, text="Orders by Month", command=orders_by_month).pack(pady=10)
 
-# -----------------------------
 # SAFE WINDOW CLOSING
-# -----------------------------
 def on_closing():
     try:
         app.destroy()
